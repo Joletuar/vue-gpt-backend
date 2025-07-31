@@ -1,4 +1,11 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Post,
+} from '@nestjs/common';
 import { CheckOrthography } from 'src/modules/orthography/application/check-orthography.use-case';
 
 import { OrthographyDto } from './dtos/orthography-check.dto';
@@ -14,6 +21,7 @@ export class OrthographyController {
   ) {}
 
   @Post('check')
+  @HttpCode(HttpStatus.OK)
   orthographyCheck(@Body() payload: OrthographyDto) {
     return this.checkOrthography.execute(payload);
   }

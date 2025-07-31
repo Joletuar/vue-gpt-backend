@@ -5,6 +5,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { OpenAiCompletionServiceUnavailableError } from 'src/modules/orthography/infraestructure/openai/openai-service-unavailable.error';
 import { InfraestructureError } from 'src/modules/shared/domain/errors/infraestructure.error';
 
 import { ApiErrorResponse } from '../../response.interface';
@@ -16,11 +17,26 @@ export class InfraestructureHandlerErrorFilter implements ExceptionFilter {
     const res = ctx.getResponse<Response<ApiErrorResponse>>();
     const req = ctx.getRequest<Request>();
 
+    console.error(exception);
+
     if (exception.isCritical) {
       // TODO: notify to slack, email or sentry
     }
 
-    // if (error instanceof RepositoryError) {}
+    if (exception instanceof OpenAiCompletionServiceUnavailableError) {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: {
+          message: exception.message,
+          details:
+            'Parece que nuestros servicios de IA no están funcionando correctamente, contacta a soporte e intenta mas tárde.',
+        },
+        meta: {
+          requestId: req.requestId || 'NO_ID',
+          timestamp: new Date().toUTCString(),
+        },
+      });
+    }
 
     // if (error instanceof ORMError) {}
 

@@ -20,8 +20,8 @@ async function bootstrap() {
   );
 
   app.useGlobalFilters(
-    new InfraestructureHandlerErrorFilter(),
     new GlobalHandlerErrorFilter(),
+    new InfraestructureHandlerErrorFilter(),
   );
 
   app.useGlobalInterceptors(new FormatApiResponse());

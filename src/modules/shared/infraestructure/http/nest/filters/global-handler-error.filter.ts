@@ -5,16 +5,17 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { InfraestructureError } from 'src/modules/shared/domain/errors/infraestructure.error';
 
 import { ApiErrorResponse } from '../../response.interface';
 
 @Catch()
 export class GlobalHandlerErrorFilter implements ExceptionFilter {
-  catch(_exception: InfraestructureError, host: ArgumentsHost) {
+  catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response<ApiErrorResponse>>();
     const req = ctx.getRequest<Request>();
+
+    console.error(exception);
 
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       statusCode: HttpStatus.INTERNAL_SERVER_ERROR,

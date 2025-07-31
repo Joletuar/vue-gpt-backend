@@ -1,0 +1,3 @@
+export const TOKENS = {
+  CHECK_ORTHOGRAPHY: 'CHECK_ORTHOGRAPHY',
+};

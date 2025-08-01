@@ -6,5 +6,8 @@ export interface AIMessage {
 }
 
 export interface CompletionRepository {
-  complete(messages: AIMessage[]): Promise<AIMessage>;
+  complete(
+    messages: AIMessage[],
+    meta?: Record<string, any>,
+  ): Promise<AIMessage>;
 }

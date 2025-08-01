@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { ChatCompletionCreateParamsBase } from 'openai/resources/chat/completions';
 
 import {
   AIMessage,
@@ -11,11 +12,20 @@ export class OpenAiCompletionRepository implements CompletionRepository {
     apiKey: process.env['OPENAI_API_KEY'],
   });
 
-  async complete(messages: AIMessage[]): Promise<AIMessage> {
+  async complete(
+    messages: AIMessage[],
+    meta: Record<string, any>,
+  ): Promise<AIMessage> {
+    const { model = 'gpt-4.1-nano', temperature = 0 } = meta as {
+      model?: ChatCompletionCreateParamsBase['model'];
+      temperature?: number;
+    };
+
     try {
       const completion = await this.client.chat.completions.create({
-        model: 'gpt-4.1-nano',
         messages,
+        model,
+        temperature,
       });
 
       const choice = completion.choices[0];

@@ -14,7 +14,7 @@ export class OpenAiCompletionRepository implements CompletionRepository {
 
   async complete(
     messages: AIMessage[],
-    meta: Record<string, any>,
+    meta: Record<string, any> = {},
   ): Promise<AIMessage> {
     const { model = 'gpt-4.1-nano', temperature = 0 } = meta as {
       model?: ChatCompletionCreateParamsBase['model'];

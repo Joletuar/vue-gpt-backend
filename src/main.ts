@@ -2,8 +2,9 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
-import { GlobalHandlerErrorFilter } from './modules/shared/infraestructure/http/nest/filters/global-handler-error.filter';
-import { InfraestructureHandlerErrorFilter } from './modules/shared/infraestructure/http/nest/filters/infraestructure-handler-error.filter';
+import { GlobalExceptionFilter } from './modules/shared/infraestructure/http/nest/filters/global-exception.filter';
+import { InfraestructurerExceptionFilter } from './modules/shared/infraestructure/http/nest/filters/infraestructure-exception.filter';
+import { ValidationExceptionFilter } from './modules/shared/infraestructure/http/nest/filters/validation-handler-error.filter';
 import { FormatApiResponse } from './modules/shared/infraestructure/http/nest/interceptors/format-api-response.interceptor';
 
 async function bootstrap() {
@@ -20,8 +21,9 @@ async function bootstrap() {
   );
 
   app.useGlobalFilters(
-    new GlobalHandlerErrorFilter(),
-    new InfraestructureHandlerErrorFilter(),
+    new GlobalExceptionFilter(),
+    new InfraestructurerExceptionFilter(),
+    new ValidationExceptionFilter(),
   );
 
   app.useGlobalInterceptors(new FormatApiResponse());

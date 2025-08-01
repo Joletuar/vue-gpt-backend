@@ -9,7 +9,7 @@ import { Request, Response } from 'express';
 import { ApiErrorResponse } from '../../response.interface';
 
 @Catch()
-export class GlobalHandlerErrorFilter implements ExceptionFilter {
+export class GlobalExceptionFilter implements ExceptionFilter {
   catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response<ApiErrorResponse>>();

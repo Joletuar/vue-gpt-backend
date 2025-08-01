@@ -11,7 +11,7 @@ import { InfraestructureError } from 'src/modules/shared/domain/errors/infraestr
 import { ApiErrorResponse } from '../../response.interface';
 
 @Catch(InfraestructureError)
-export class InfraestructureHandlerErrorFilter implements ExceptionFilter {
+export class InfraestructurerExceptionFilter implements ExceptionFilter {
   catch(exception: InfraestructureError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response<ApiErrorResponse>>();

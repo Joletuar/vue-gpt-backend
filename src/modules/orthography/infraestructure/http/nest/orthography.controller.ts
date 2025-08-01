@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { CheckOrthography } from 'src/modules/orthography/application/check-orthography.use-case';
 
-import { OrthographyDto } from './dtos/orthography-check.dto';
+import { OrthographyCheckDto } from './dtos/orthography-check.dto';
 import { TOKENS } from './tokens';
 
 @Controller({
@@ -22,7 +22,7 @@ export class OrthographyController {
 
   @Post('check')
   @HttpCode(HttpStatus.OK)
-  orthographyCheck(@Body() payload: OrthographyDto) {
+  orthographyCheck(@Body() payload: OrthographyCheckDto) {
     return this.checkOrthography.execute(payload);
   }
 }

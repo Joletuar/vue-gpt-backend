@@ -1,6 +1,6 @@
 import { IsInt, IsOptional, IsPositive, IsString } from 'class-validator';
 
-export class OrthographyDto {
+export class OrthographyCheckDto {
   @IsString()
   prompt: string;
 

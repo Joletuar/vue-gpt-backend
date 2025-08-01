@@ -31,10 +31,7 @@ export class CheckOrthography {
 
     const parsedData = this.parseMessage(completion.content);
 
-    return {
-      role: completion.role,
-      content: parsedData,
-    };
+    return parsedData;
   }
 
   private parseMessage(message: string) {

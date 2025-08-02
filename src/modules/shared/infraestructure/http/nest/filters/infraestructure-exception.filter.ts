@@ -5,6 +5,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+
 import { InfraestructureError } from 'src/modules/shared/domain/errors/infraestructure.error';
 import { OpenAiCompletionServiceUnavailableError } from 'src/modules/shared/infraestructure/openai/openai-service-unavailable.error';
 

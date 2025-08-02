@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { CheckOrthography } from 'src/modules/orthography/application/check-orthography.use-case';
 import { CompletionRepository } from 'src/modules/shared/domain/completion.repository';
 import { SHARED_TOKENS } from 'src/modules/shared/infraestructure/http/nest/shared-tokens';

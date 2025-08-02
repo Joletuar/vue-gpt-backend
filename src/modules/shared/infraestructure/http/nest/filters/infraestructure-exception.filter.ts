@@ -5,8 +5,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { OpenAiCompletionServiceUnavailableError } from 'src/modules/orthography/infraestructure/openai/openai-service-unavailable.error';
 import { InfraestructureError } from 'src/modules/shared/domain/errors/infraestructure.error';
+import { OpenAiCompletionServiceUnavailableError } from 'src/modules/shared/infraestructure/openai/openai-service-unavailable.error';
 
 import { ApiErrorResponse } from '../../response.interface';
 

@@ -1,3 +1,5 @@
+import { Readable } from 'node:stream';
+
 export type AIRole = 'system' | 'user' | 'assistant';
 
 export interface AIMessage {
@@ -8,6 +10,6 @@ export interface AIMessage {
 export interface CompletionRepository {
   complete(
     messages: AIMessage[],
-    meta?: Record<string, any>,
-  ): Promise<AIMessage>;
+    meta?: Record<string, unknown>,
+  ): Promise<AIMessage | Readable>;
 }

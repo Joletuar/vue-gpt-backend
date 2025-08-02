@@ -6,17 +6,18 @@ import {
   Inject,
   Post,
 } from '@nestjs/common';
+
 import { CheckOrthography } from 'src/modules/orthography/application/check-orthography.use-case';
 
 import { OrthographyCheckDto } from './dtos/orthography-check.dto';
-import { TOKENS } from './tokens';
+import { ORTHOGRAPHY_TOKENS } from './orthography-tokens';
 
 @Controller({
   path: 'orthography',
 })
 export class OrthographyController {
   constructor(
-    @Inject(TOKENS.CHECK_ORTHOGRAPHY)
+    @Inject(ORTHOGRAPHY_TOKENS.CHECK_ORTHOGRAPHY)
     private readonly checkOrthography: CheckOrthography,
   ) {}
 

@@ -1,11 +1,14 @@
-import type { CompletionRepository } from '../domain/completion.repository';
+import type {
+  AIMessage,
+  CompletionRepository,
+} from '../../shared/domain/completion.repository';
 import type { CheckOrthographyDto } from './check-orthography.dto';
 
 export class CheckOrthography {
   constructor(private readonly completionRepository: CompletionRepository) {}
 
   async execute(checkOrthographyDto: CheckOrthographyDto) {
-    const completion = await this.completionRepository.complete([
+    const completion = (await this.completionRepository.complete([
       {
         role: 'system',
         content: `Eres un corrector ortográfico y gramatical. Valida el siguiente texto y proporciona un análisis en formato JSON. El análisis debe incluir:
@@ -27,7 +30,7 @@ export class CheckOrthography {
         role: 'user',
         content: checkOrthographyDto.prompt,
       },
-    ]);
+    ])) as AIMessage;
 
     const parsedData = this.parseMessage(completion.content);
 

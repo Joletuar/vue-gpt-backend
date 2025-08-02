@@ -23,7 +23,7 @@ export class ValidationExceptionFilter implements ExceptionFilter {
     res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
       statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
       error: {
-        message: 'Parece que la solicitud no tiene el formato adecuado',
+        message: 'Parece que la solicitud no tiene el formato adecuado.',
         details: exceptionResponse.message.map((i) => i),
       },
       meta: {

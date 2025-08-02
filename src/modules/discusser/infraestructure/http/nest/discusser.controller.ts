@@ -44,7 +44,11 @@ export class DiscusserController {
 
     return pipeline(chunks, res, (error) => {
       if (error) {
-        return this.logger.error('Error en el pipeline de stream:', error);
+        if (error.code === 'ERR_STREAM_PREMATURE_CLOSE') {
+          return this.logger.warn('Stream cerrado prematuramente');
+        }
+
+        return this.logger.error('Error en pipline del stream', error);
       }
 
       this.logger.debug('Stream finalizado exitosamente');

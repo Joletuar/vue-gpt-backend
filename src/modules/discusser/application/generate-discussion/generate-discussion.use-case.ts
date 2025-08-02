@@ -1,11 +1,14 @@
-import { CompletionRepository } from 'src/modules/shared/domain/completion.repository';
+import {
+  AIMessage,
+  CompletionRepository,
+} from 'src/modules/shared/domain/completion.repository';
 
 import { GenerateDiscussionDto } from './generate-discussion.dto';
 
 export class GenerateDiscussion {
   constructor(private readonly completionRepository: CompletionRepository) {}
   async execute(payload: GenerateDiscussionDto) {
-    const completion = await this.completionRepository.complete([
+    const completion = (await this.completionRepository.complete([
       {
         role: 'system',
         content: `Recibirás una pregunta del usuario. Tu tarea es analizarla y generar una respuesta equilibrada en formato markdown, presentando tanto los pros como los contras de manera clara y objetiva.
@@ -20,8 +23,10 @@ export class GenerateDiscussion {
         role: 'user',
         content: payload.prompt,
       },
-    ]);
+    ])) as AIMessage;
 
-    return completion;
+    return {
+      message: completion.content,
+    };
   }
 }

@@ -5,9 +5,15 @@ import { OrthographyModule } from './modules/orthography/infraestructure/http/ne
 import { AddRequestIdMiddleware } from './modules/shared/infraestructure/http/nest/middlewares/add-request-id.middleware';
 import { AppLoggerMiddleware } from './modules/shared/infraestructure/http/nest/middlewares/app-logger.middleware';
 import { SharedModule } from './modules/shared/infraestructure/http/nest/shared.module';
+import { TranslationModule } from './modules/translation/infraestructure/http/nest/translation.module';
 
 @Module({
-  imports: [SharedModule, OrthographyModule, DiscusserModule],
+  imports: [
+    SharedModule,
+    OrthographyModule,
+    DiscusserModule,
+    TranslationModule,
+  ],
   controllers: [],
   providers: [],
 })

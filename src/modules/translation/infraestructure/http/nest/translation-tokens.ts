@@ -1,0 +1,3 @@
+export const TRANSLATION_TOKENS = {
+  TRANSLATE_TEXT: 'TRANSLATE_TEXT',
+};

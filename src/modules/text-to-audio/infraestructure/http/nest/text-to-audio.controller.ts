@@ -28,7 +28,7 @@ export class TextToAudioController {
     const chunks = await this._convertTextToAudio.execute(dto);
 
     res.status(HttpStatus.OK).set({
-      'Content-Type': 'audio/mpeg',
+      'Content-Type': 'audio/mp3',
       'Content-Disposition': 'inline; filename="audio.mp3"',
     });
 

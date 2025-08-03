@@ -32,7 +32,7 @@ export class TextToAudioController {
       'Content-Disposition': 'inline; filename="audio.mp3"',
     });
 
-    return pipeline(chunks, res, (err) => {
+    pipeline(chunks, res, (err) => {
       if (err) {
         return this.logger.error('Error en pipline del stream', err);
       }

@@ -3,6 +3,7 @@ import { pipeline } from 'node:stream';
 import {
   Controller,
   FileTypeValidator,
+  HttpStatus,
   Inject,
   Logger,
   MaxFileSizeValidator,
@@ -54,7 +55,9 @@ export class AudioToTextController {
       type: mimetype,
     });
 
-    return pipeline(chunks, res, (err) => {
+    res.status(HttpStatus.OK).setHeader('Content-type', 'text/plain');
+
+    pipeline(chunks, res, (err) => {
       if (err) {
         this.logger.error('Error en pipeline de stream');
 

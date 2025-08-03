@@ -42,7 +42,7 @@ export class DiscusserController {
 
     res.status(HttpStatus.OK).setHeader('Content-Type', 'application/json');
 
-    return pipeline(chunks, res, (error) => {
+    pipeline(chunks, res, (error) => {
       if (error) {
         if (error.code === 'ERR_STREAM_PREMATURE_CLOSE') {
           return this.logger.warn('Stream cerrado prematuramente');

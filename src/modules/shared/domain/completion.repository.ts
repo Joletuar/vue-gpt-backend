@@ -12,4 +12,6 @@ export interface CompletionRepository {
     messages: AIMessage[],
     meta?: Record<string, unknown>,
   ): Promise<AIMessage | Readable>;
+
+  textToAudio(speech: string, meta?: Record<string, unknown>): Promise<Buffer>;
 }

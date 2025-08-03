@@ -1,6 +1,7 @@
 import { Readable } from 'node:stream';
 
 import OpenAI from 'openai';
+import { SpeechCreateParams } from 'openai/resources/audio/speech';
 import { ChatCompletionCreateParamsBase } from 'openai/resources/chat/completions';
 
 import {
@@ -97,5 +98,34 @@ export class OpenAiCompletionRepository implements CompletionRepository {
     })();
 
     return readableStream;
+  }
+
+  async textToAudio(
+    speech: string,
+    meta?: Record<string, unknown>,
+  ): Promise<Buffer> {
+    const {
+      model = 'gpt-4o-mini-tts',
+      voice = 'alloy',
+      responseFormat = 'mp3',
+    } = meta as {
+      model?: SpeechCreateParams['model'];
+      voice?: SpeechCreateParams['voice'];
+      responseFormat?: SpeechCreateParams['response_format'];
+    };
+
+    try {
+      const res = await this.client.audio.speech.create({
+        model,
+        input: speech,
+        response_format: responseFormat,
+        stream_format: 'audio',
+        voice,
+      });
+
+      return Buffer.from(await res.arrayBuffer());
+    } catch (error) {
+      throw new OpenAiCompletionServiceUnavailableError(error);
+    }
   }
 }

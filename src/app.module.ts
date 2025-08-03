@@ -5,6 +5,7 @@ import { OrthographyModule } from './modules/orthography/infraestructure/http/ne
 import { AddRequestIdMiddleware } from './modules/shared/infraestructure/http/nest/middlewares/add-request-id.middleware';
 import { AppLoggerMiddleware } from './modules/shared/infraestructure/http/nest/middlewares/app-logger.middleware';
 import { SharedModule } from './modules/shared/infraestructure/http/nest/shared.module';
+import { TextToAudioModule } from './modules/text-to-audio/infraestructure/http/nest/text-to-audio.module';
 import { TranslationModule } from './modules/translation/infraestructure/http/nest/translation.module';
 
 @Module({
@@ -13,6 +14,7 @@ import { TranslationModule } from './modules/translation/infraestructure/http/ne
     OrthographyModule,
     DiscusserModule,
     TranslationModule,
+    TextToAudioModule,
   ],
   controllers: [],
   providers: [],

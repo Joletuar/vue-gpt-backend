@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
+import { AudioToTextModule } from './modules/audio-to-text/infraestructure/http/nest/audio-to-text.module';
 import { DiscusserModule } from './modules/discusser/infraestructure/http/nest/discusser.module';
 import { OrthographyModule } from './modules/orthography/infraestructure/http/nest/orthography.module';
 import { AddRequestIdMiddleware } from './modules/shared/infraestructure/http/nest/middlewares/add-request-id.middleware';
@@ -15,6 +16,7 @@ import { TranslationModule } from './modules/translation/infraestructure/http/ne
     DiscusserModule,
     TranslationModule,
     TextToAudioModule,
+    AudioToTextModule,
   ],
   controllers: [],
   providers: [],

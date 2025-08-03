@@ -1,6 +1,8 @@
 import {
   Controller,
   FileTypeValidator,
+  HttpCode,
+  HttpStatus,
   Inject,
   MaxFileSizeValidator,
   ParseFilePipe,
@@ -21,6 +23,7 @@ export class AudioToTextController {
   ) {}
 
   @Post()
+  @HttpCode(HttpStatus.OK)
   @UseInterceptors(FileInterceptor('audio'))
   async convert(
     @UploadedFile(

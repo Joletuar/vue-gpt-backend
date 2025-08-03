@@ -1,11 +1,13 @@
 import { Readable } from 'node:stream';
 
-import OpenAI from 'openai';
+import OpenAI, { toFile } from 'openai';
 import { SpeechCreateParams } from 'openai/resources/audio/speech';
 import { ChatCompletionCreateParamsBase } from 'openai/resources/chat/completions';
 
 import {
   AIMessage,
+  AITranscription,
+  AudioFile,
   CompletionRepository,
 } from '../../domain/completion.repository';
 import { OpenAiCompletionServiceUnavailableError } from './openai-service-unavailable.error';
@@ -102,7 +104,7 @@ export class OpenAiCompletionRepository implements CompletionRepository {
 
   async textToAudio(
     speech: string,
-    meta?: Record<string, unknown>,
+    meta: Record<string, unknown> = {},
   ): Promise<Buffer> {
     const {
       model = 'gpt-4o-mini-tts',
@@ -124,6 +126,25 @@ export class OpenAiCompletionRepository implements CompletionRepository {
       });
 
       return Buffer.from(await res.arrayBuffer());
+    } catch (error) {
+      throw new OpenAiCompletionServiceUnavailableError(error);
+    }
+  }
+
+  async audioToText(audio: AudioFile): Promise<AITranscription> {
+    try {
+      const transcription = await this.client.audio.transcriptions.create({
+        model: 'whisper-1',
+        temperature: 0,
+        file: await toFile(audio.buffer, audio.originalname, {
+          type: audio.mimetype,
+        }),
+        response_format: 'vtt',
+      });
+
+      return {
+        transcription,
+      };
     } catch (error) {
       throw new OpenAiCompletionServiceUnavailableError(error);
     }

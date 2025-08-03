@@ -7,6 +7,16 @@ export interface AIMessage {
   content: string;
 }
 
+export interface AITranscription {
+  transcription: string;
+}
+
+export interface AudioFile {
+  buffer: Buffer;
+  originalname: string;
+  mimetype: string;
+}
+
 export interface CompletionRepository {
   complete(
     messages: AIMessage[],
@@ -14,4 +24,9 @@ export interface CompletionRepository {
   ): Promise<AIMessage | Readable>;
 
   textToAudio(speech: string, meta?: Record<string, unknown>): Promise<Buffer>;
+
+  audioToText(
+    audio: AudioFile,
+    meta?: Record<string, unknown>,
+  ): Promise<AITranscription>;
 }

@@ -1,5 +1,3 @@
-import { Readable } from 'node:stream';
-
 import { CompletionRepository } from 'src/modules/shared/domain/completion.repository';
 
 import { ConvertAudioToTextDto } from './convert-audio-to-text.dto';
@@ -14,8 +12,8 @@ export class ConvertAudioToText {
       originalname: payload.name,
     });
 
-    const stream = Readable.from(transcription);
-
-    return stream;
+    return {
+      text: transcription,
+    };
   }
 }

@@ -1,0 +1,3 @@
+export const IMAGE_TOKENS = {
+  GENERATE_IMAGE: 'GENERATE_IMAGE',
+};

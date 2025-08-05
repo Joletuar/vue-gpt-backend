@@ -3,6 +3,7 @@ import { Readable } from 'node:stream';
 import OpenAI, { toFile } from 'openai';
 import { SpeechCreateParams } from 'openai/resources/audio/speech';
 import { ChatCompletionCreateParamsBase } from 'openai/resources/chat/completions';
+import { ImageGenerateParamsBase } from 'openai/resources/images';
 
 import {
   AIMessage,
@@ -145,6 +146,36 @@ export class OpenAiCompletionRepository implements CompletionRepository {
       return {
         transcription,
       };
+    } catch (error) {
+      throw new OpenAiCompletionServiceUnavailableError(error);
+    }
+  }
+
+  async generateImage(
+    prompt: string,
+    meta: Record<string, unknown> = {},
+  ): Promise<string> {
+    const { style = 'natural' } = meta as {
+      outputFormat: ImageGenerateParamsBase['output_format'];
+      style: ImageGenerateParamsBase['style'];
+    };
+
+    try {
+      const res = await this.client.images.generate({
+        model: 'dall-e-3',
+        response_format: 'b64_json',
+        quality: 'hd',
+        n: 1,
+        size: '1024x1024',
+        style,
+        prompt,
+      });
+
+      const image = res.data ? res.data[0] : null;
+
+      if (!image) return '';
+
+      return image.b64_json!;
     } catch (error) {
       throw new OpenAiCompletionServiceUnavailableError(error);
     }

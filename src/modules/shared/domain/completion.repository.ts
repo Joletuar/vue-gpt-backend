@@ -29,4 +29,9 @@ export interface CompletionRepository {
     audio: AudioFile,
     meta?: Record<string, unknown>,
   ): Promise<AITranscription>;
+
+  generateImage(
+    prompt: string,
+    meta?: Record<string, unknown>,
+  ): Promise<string>;
 }

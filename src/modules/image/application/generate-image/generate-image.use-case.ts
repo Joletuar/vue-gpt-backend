@@ -15,7 +15,9 @@ export class GenerateImage {
 
     const imagePath = await this.saveImageInFileSystem(result);
 
-    return imagePath;
+    return {
+      imageId: imagePath,
+    };
   }
 
   async saveImageInFileSystem(b64Image: string) {

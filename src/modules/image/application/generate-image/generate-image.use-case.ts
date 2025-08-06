@@ -19,7 +19,7 @@ export class GenerateImage {
   }
 
   async saveImageInFileSystem(b64Image: string) {
-    const BASE_PATH = path.resolve(__dirname, '../../../../generated');
+    const BASE_PATH = path.resolve(__dirname, '../../../../../generated');
     const IMAGES_PATH = path.resolve(BASE_PATH, 'images');
 
     await fs.promises.mkdir(IMAGES_PATH, { recursive: true });

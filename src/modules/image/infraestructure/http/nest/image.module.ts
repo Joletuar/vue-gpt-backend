@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { GenerateImage } from 'src/modules/image/application/generate-image/generate-image.use-case';
+import { GetImage } from 'src/modules/image/application/get-image/get-image.use-case';
 import { CompletionRepository } from 'src/modules/shared/domain/completion.repository';
 import { SHARED_TOKENS } from 'src/modules/shared/infraestructure/http/nest/shared-tokens';
 import { SharedModule } from 'src/modules/shared/infraestructure/http/nest/shared.module';
@@ -18,6 +19,10 @@ import { ImageController } from './image.controller';
         return new GenerateImage(completionRepository);
       },
       inject: [SHARED_TOKENS.COMPLETION_REPOSITORY],
+    },
+    {
+      provide: IMAGE_TOKENS.GET_IMAGE,
+      useClass: GetImage,
     },
   ],
 })

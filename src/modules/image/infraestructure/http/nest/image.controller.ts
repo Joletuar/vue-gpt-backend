@@ -1,6 +1,6 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 
-import { GenerateImage } from 'src/modules/image/application/generate-image.use-case';
+import { GenerateImage } from 'src/modules/image/application/generate-image/generate-image.use-case';
 
 import { GenerateImageDto } from './dtos/generate-image.dto';
 import { IMAGE_TOKENS } from './image-tokens';

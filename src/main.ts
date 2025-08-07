@@ -1,5 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import * as express from 'express';
 
 import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from './modules/shared/infraestructure/http/nest/filters/global-exception.filter';
@@ -12,6 +13,9 @@ async function bootstrap() {
 
   app.enableCors();
   app.setGlobalPrefix('/api/v1');
+
+  app.use(express.json({ limit: '10mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
   app.useGlobalPipes(
     new ValidationPipe({

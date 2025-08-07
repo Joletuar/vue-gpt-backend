@@ -34,4 +34,11 @@ export interface CompletionRepository {
     prompt: string,
     meta?: Record<string, unknown>,
   ): Promise<string>;
+
+  editImage(
+    prompt: string,
+    image: File | string,
+    mask: File | string,
+    meta?: Record<string, unknown>,
+  ): Promise<string>;
 }

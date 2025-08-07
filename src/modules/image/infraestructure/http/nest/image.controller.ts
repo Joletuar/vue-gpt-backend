@@ -13,9 +13,11 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 
+import { EditImage } from 'src/modules/image/application/edit-image/edit-image.use-case';
 import { GenerateImage } from 'src/modules/image/application/generate-image/generate-image.use-case';
 import { GetImage } from 'src/modules/image/application/get-image/get-image.use-case';
 
+import { EditImageDto } from './dtos/edit-image.dto';
 import { GenerateImageDto } from './dtos/generate-image.dto';
 import { IMAGE_TOKENS } from './image-tokens';
 
@@ -30,11 +32,21 @@ export class ImageController {
     private readonly _generateImage: GenerateImage,
     @Inject(IMAGE_TOKENS.GET_IMAGE)
     private readonly _getImage: GetImage,
+    @Inject(IMAGE_TOKENS.EDIT_IMAGE)
+    private readonly _editImage: EditImage,
   ) {}
 
   @Post('/generate')
   async generateImage(@Body() payload: GenerateImageDto) {
     return await this._generateImage.execute(payload);
+  }
+
+  @Post('/edit')
+  async editImage(
+    @Body()
+    payload: EditImageDto,
+  ) {
+    return await this._editImage.execute(payload);
   }
 
   @Get('/:imageId')

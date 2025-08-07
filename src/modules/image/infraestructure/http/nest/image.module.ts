@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 
+import { EditImage } from 'src/modules/image/application/edit-image/edit-image.use-case';
 import { GenerateImage } from 'src/modules/image/application/generate-image/generate-image.use-case';
 import { GetImage } from 'src/modules/image/application/get-image/get-image.use-case';
 import { CompletionRepository } from 'src/modules/shared/domain/completion.repository';
@@ -17,6 +18,13 @@ import { ImageController } from './image.controller';
       provide: IMAGE_TOKENS.GENERATE_IMAGE,
       useFactory: (completionRepository: CompletionRepository) => {
         return new GenerateImage(completionRepository);
+      },
+      inject: [SHARED_TOKENS.COMPLETION_REPOSITORY],
+    },
+    {
+      provide: IMAGE_TOKENS.EDIT_IMAGE,
+      useFactory: (completionRepository: CompletionRepository) => {
+        return new EditImage(completionRepository);
       },
       inject: [SHARED_TOKENS.COMPLETION_REPOSITORY],
     },

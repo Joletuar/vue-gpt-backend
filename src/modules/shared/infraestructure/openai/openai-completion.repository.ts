@@ -180,4 +180,49 @@ export class OpenAiCompletionRepository implements CompletionRepository {
       throw new OpenAiCompletionServiceUnavailableError(error);
     }
   }
+
+  async editImage(
+    prompt: string,
+    image: File | string,
+    mask: File | string,
+  ): Promise<string> {
+    try {
+      let file: File;
+
+      if (typeof image === 'string') {
+        const buffer = Buffer.from(image, 'base64');
+        file = await toFile(buffer, 'image.png', { type: 'image/png' });
+      } else {
+        file = await toFile(image);
+      }
+
+      let maskFile: File;
+      if (typeof mask === 'string') {
+        const buffer = Buffer.from(mask, 'base64');
+        maskFile = await toFile(buffer, 'image.png', { type: 'image/png' });
+      } else {
+        maskFile = await toFile(mask);
+      }
+
+      const res = await this.client.images.edit({
+        model: 'dall-e-2',
+        prompt,
+        size: '1024x1024',
+        response_format: 'b64_json',
+        n: 1,
+        output_format: 'png',
+        quality: 'high',
+        image: file,
+        mask: maskFile,
+      });
+
+      const editedImage = res.data ? res.data[0] : null;
+
+      if (!editedImage) return '';
+
+      return editedImage.b64_json!;
+    } catch (error) {
+      throw new OpenAiCompletionServiceUnavailableError(error);
+    }
+  }
 }

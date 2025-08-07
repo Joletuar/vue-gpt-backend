@@ -210,8 +210,6 @@ export class OpenAiCompletionRepository implements CompletionRepository {
         size: '1024x1024',
         response_format: 'b64_json',
         n: 1,
-        output_format: 'png',
-        quality: 'high',
         image: file,
         mask: maskFile,
       });

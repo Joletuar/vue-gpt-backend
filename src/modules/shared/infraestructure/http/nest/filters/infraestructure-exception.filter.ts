@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
+import { OpenAiAssistantServiceUnavailableError } from 'src/modules/assistant/infraestructure/openai/openai-assistant-service-unavailable.error';
 import { InfraestructureError } from 'src/modules/shared/domain/errors/infraestructure.error';
 import { OpenAiCompletionServiceUnavailableError } from 'src/modules/shared/infraestructure/openai/openai-service-unavailable.error';
 
@@ -31,6 +32,21 @@ export class InfraestructurerExceptionFilter implements ExceptionFilter {
           message: exception.message,
           details:
             'Parece que nuestros servicios de IA no están funcionando correctamente, contacta a soporte e intenta mas tárde.',
+        },
+        meta: {
+          requestId: req.requestId || 'NO_ID',
+          timestamp: new Date().toUTCString(),
+        },
+      });
+    }
+
+    if (exception instanceof OpenAiAssistantServiceUnavailableError) {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: {
+          message: exception.message,
+          details:
+            'Parece que nuestros servicios de Agentes IA no están funcionando correctamente, contacta a soporte e intenta mas tárde.',
         },
         meta: {
           requestId: req.requestId || 'NO_ID',

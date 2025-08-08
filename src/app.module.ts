@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
+import { AssistantModule } from './modules/assistant/infraestructure/http/nest/assistant.module';
 import { AudioToTextModule } from './modules/audio-to-text/infraestructure/http/nest/audio-to-text.module';
 import { DiscusserModule } from './modules/discusser/infraestructure/http/nest/discusser.module';
 import { ImageModule } from './modules/image/infraestructure/http/nest/image.module';
@@ -19,6 +20,7 @@ import { TranslationModule } from './modules/translation/infraestructure/http/ne
     TextToAudioModule,
     AudioToTextModule,
     ImageModule,
+    AssistantModule,
   ],
   controllers: [],
   providers: [],

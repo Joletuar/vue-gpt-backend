@@ -14,7 +14,10 @@ import { AssistantController } from './assistant.controller';
     OpenAiAssistantRepository,
     {
       provide: ASSISTANT_TOKEN.CREATE_THREAD,
-      useClass: CreateThread,
+      useFactory: (assistantRepository: AssistantRepository) => {
+        return new CreateThread(assistantRepository);
+      },
+      inject: [OpenAiAssistantRepository],
     },
     {
       provide: ASSISTANT_TOKEN.ANSWER_QUESTION,
